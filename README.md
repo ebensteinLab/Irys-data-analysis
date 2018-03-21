@@ -8,3 +8,6 @@ Scripts and information regarding Irys data analysis
 ### Convert xmap & cmap files to stretched BED file
 
 ### Merge two BED files containing molecule regions
+
+### Convert xmap & cmap files to GFF3 format
+A collection of scripts to convert single molecule optical mapping data to GFF3 format, in order to view single molecule alignments in JBrowse.
