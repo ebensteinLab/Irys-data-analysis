@@ -70,8 +70,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -o OUTPUT DIR, --output OUTPUT DIR
-                        output files directory. default current working
-                        directory
+                        output files directory. default current working directory
   -c MIN_CONFIDENCE, --conf MIN_CONFIDENCE
                         min alignment confidence. default 12
   -a ALIGNMENT LABEL CHANNEL, --alignment ALIGNMENT LABEL CHANNEL
