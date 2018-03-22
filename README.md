@@ -52,7 +52,7 @@ _Output options:_
 
 **Usage:**
 ```
-usage: xmap_cmap_to_BED_stretched.py [-h] [-o OUTPUT DIR]
+xmap_cmap_to_BED_stretched.py [-h] [-o OUTPUT DIR]
                                         [-c MIN_CONFIDENCE]
                                         [-a ALIGNMENT LABEL CHANNEL]
                                         [-q QUERY LABEL CHANNEL] [-lb] [-mb]
@@ -84,6 +84,29 @@ optional arguments:
 ```
 
 ### Merge two BED files containing molecule regions
+Use this script to merge two molecule regions BED files from two different channels produced by the _xmap_cmap_to_BED_stretched_ script. Running this script ensures that you get the most complete range possible for each molecule.
+
+_Input files:_ Two molecule regions BED files, one for each channel.
+
+_Output files:_ One merged molecule regions BED file.
+
+**Usage:**
+```
+merge_2_mol_region_files.py [-h] [-o OUTPUT DIR] [-p PREFIX] regions_ch1 regions_ch2
+
+Merge channel 1 and channel 2 molecule region BED files
+
+positional arguments:
+  regions_ch1           molecule regions channel 1 input path
+  regions_ch2           molecule regions channel 2 input path
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT DIR, --output OUTPUT DIR
+                        output file directory. default current working directory
+  -p PREFIX, --prefix PREFIX
+                        output file prefix
+```
 
 ### Convert xmap & cmap files to GFF3 format
 A collection of scripts to convert single molecule optical mapping data to GFF3 format, in order to view single molecule alignments in JBrowse.
