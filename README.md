@@ -37,6 +37,52 @@ optional arguments:
 ```
 
 ### Convert xmap & cmap files to stretched BED file
+This script converts single molecule optical mapping alignment data stored in xmap and cmap files to bioinformatics compatible BED files.
+
+_Input files:_ xmap file, q_cmap file, r_cmap file, chromosome key file (produced when converting the reference fasta file to the refernce cmap)
+
+_Output options:_
+1. BED file of labels in QUERY channel
+
+   The reported labels take up 3 bp in the BED file. You can then extend them separately to account for optical resolution.
+
+2. BED file of alignment regions of molecules that had at least 1 label in QUERY channel
+
+   **Note** that in order to get a BED file of **all** aligned molecules, you need to run the script twice, once for each channel, then merge the files using the _Merge two molecule regions BED files_ script.
+
+**Usage:**
+```
+usage: xmap_cmap_to_BED_stretched.py [-h] [-o OUTPUT DIR]
+                                        [-c MIN_CONFIDENCE]
+                                        [-a ALIGNMENT LABEL CHANNEL]
+                                        [-q QUERY LABEL CHANNEL] [-lb] [-mb]
+                                        [-p PREFIX]
+                                        xmap q_cmap r_cmap key
+
+Convert BioNano xmap and cmap to labels and molecules BED files
+
+positional arguments:
+  xmap                  input xmap file
+  q_cmap                input q_cmap file
+  r_cmap                input r_cmap file
+  key                   ref cmap key file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT DIR, --output OUTPUT DIR
+                        output files directory. default current working
+                        directory
+  -c MIN_CONFIDENCE, --conf MIN_CONFIDENCE
+                        min alignment confidence. default 12
+  -a ALIGNMENT LABEL CHANNEL, --alignment ALIGNMENT LABEL CHANNEL
+                        alignment label channel. default 1
+  -q QUERY LABEL CHANNEL, --query QUERY LABEL CHANNEL
+                        query label channel. default 2
+  -lb, --label_bed      save query labels BED file. default False
+  -mb, --molecule_bed   save molecules containing query labels. default False
+  -p PREFIX, --prefix PREFIX
+                        output files prefix
+```
 
 ### Merge two BED files containing molecule regions
 
