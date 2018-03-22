@@ -4,7 +4,7 @@ Scripts and information regarding Irys data analysis
 **If you use this software, please cite: [Genome-wide epigenetic profiling of 5-hydroxymethylcytosine by long-read optical mapping](https://doi.org/10.1101/260166)**
 
 ### Filter xmap & q_cmap files by confidence and percent alignment
-Use this script to filter an xmap file and its corresponding q_cmap files according to minimum alignment confidence and minimum percent of the molecule's length aligned to the reference (avoid ambiguous alignments).
+Use this script to filter an xmap file and its corresponding q_cmap file according to minimum alignment confidence and minimum percent of the molecule's length aligned to the reference (avoid ambiguous alignments).
 
 _Input files:_ xmap file, q_cmap file
 
