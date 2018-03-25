@@ -1,3 +1,4 @@
+import sys
 import argparse
 import os
 import numpy as np
@@ -178,7 +179,10 @@ def printMolRegionsBed(output_file_path):
             output_file.write(lineToPrint)
 
 
-
+if not args.label_bed and not args.molecule_bed:
+    print("Missing Argument. At least one of -lb and -mb must be selected.")
+    sys.exit(1)            
+            
 chrom_lengths, chrom_names = parse_key_file(args.key)
 parseXmap(args.xmap, args.min_confidence)
 print("done parsing xmap")
