@@ -1,7 +1,7 @@
 # Irys-data-analysis
 Scripts and information regarding Irys data analysis
 
-**If you use this software, please cite: [Genome-wide epigenetic profiling of 5-hydroxymethylcytosine by long-read optical mapping](https://doi.org/10.1101/260166)**
+**If you use this software, please cite: [Genome-wide epigenetic profiling of 5-hydroxymethylcytosine by long-read optical mapping (https://doi.org/10.1101/260166)](https://doi.org/10.1101/260166)**
 
 ### Filter xmap & q_cmap files by confidence and percent alignment
 Use this script to filter an xmap file and its corresponding q_cmap file according to minimum alignment confidence and minimum percent of the molecule's length aligned to the reference (avoid ambiguous alignments).
@@ -36,6 +36,13 @@ optional arguments:
                         output files prefix
 ```
 
+**Example:**
+
+Filter on minimum confidence 20 and minimum aligned length percentage 75:
+```
+filter_xmap_by_confidence_and_percent_alignment.py -o output_dir -c 20 -a 75 -p min.conf.20.min.alignment.75. xmap_file.xmap cmap_file_q.cmap
+```
+
 ### Convert xmap & cmap files to stretched BED file
 This script converts single molecule optical mapping alignment data stored in xmap and cmap files to bioinformatics compatible BED files.
 
@@ -53,11 +60,11 @@ _Output options:_
 **Usage:**
 ```
 xmap_cmap_to_BED_stretched.py [-h] [-o OUTPUT DIR]
-                                        [-c MIN_CONFIDENCE]
-                                        [-a ALIGNMENT LABEL CHANNEL]
-                                        [-q QUERY LABEL CHANNEL] [-lb] [-mb]
-                                        [-p PREFIX]
-                                        xmap q_cmap r_cmap key
+                                   [-c MIN_CONFIDENCE]
+                                   [-a ALIGNMENT LABEL CHANNEL]
+                                   [-q QUERY LABEL CHANNEL] [-lb] [-mb]
+                                   [-p PREFIX]
+                                   xmap q_cmap r_cmap key
 
 Convert BioNano xmap and cmap to labels and molecules BED files
 
@@ -82,6 +89,14 @@ optional arguments:
   -p PREFIX, --prefix PREFIX
                         output files prefix
 ```
+
+**Exmaple:**
+
+Running:
+```
+xmap_cmap_to_BED_stretched.py -o output_dir -lb -mb -p output_file_prefix xmap_file.xmap mol_q.cmap ref_r.cmap ref_key.txt
+```
+will output two two BED files, one of all labels in channel 2, and another of all molecules that had at least one label in channel 2. Only molecules with alignment confidence >= 12 will be considered.
 
 ### Merge two BED files containing molecule regions
 Use this script to merge two molecule regions BED files from two different channels produced by the _xmap_cmap_to_BED_stretched_ script. Running this script ensures that you get the most complete range possible for each molecule.
