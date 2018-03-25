@@ -5,7 +5,8 @@ Scripts and information regarding Irys data analysis
 
 ## Prerequisites
 1. Python 3.4 or higher
-2. Output files from BioNano MQR
+2. Numpy, Scipy
+3. Output files from BioNano MQR
 
 ## Scripts
 ### Filter xmap & q_cmap files by confidence and percent alignment
