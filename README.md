@@ -3,6 +3,11 @@ Scripts and information regarding Irys data analysis
 
 **If you use this software, please cite: [Genome-wide epigenetic profiling of 5-hydroxymethylcytosine by long-read optical mapping (https://doi.org/10.1101/260166)](https://doi.org/10.1101/260166)**
 
+## Prerequisites
+1. Python 3.4 or higher
+2. Output files from BioNano MQR
+
+## Scripts
 ### Filter xmap & q_cmap files by confidence and percent alignment
 Use this script to filter an xmap file and its corresponding q_cmap file according to minimum alignment confidence and minimum percent of the molecule's length aligned to the reference (avoid ambiguous alignments).
 
