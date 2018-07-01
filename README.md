@@ -1,7 +1,7 @@
 # Irys-data-analysis
 Scripts and information regarding Irys data analysis
 
-**If you use this software, please cite: [Genome-wide epigenetic profiling of 5-hydroxymethylcytosine by long-read optical mapping (https://doi.org/10.1101/260166)](https://doi.org/10.1101/260166)**
+**If you use this software, please cite: [Epigenetic Optical Mapping of 5-Hydroxymethylcytosine in Nanochannel Arrays (https://doi.org/10.1021/acsnano.8b03023)](https://doi.org/10.1021/acsnano.8b03023)**
 
 ## Prerequisites
 1. Python 3.4 or higher
