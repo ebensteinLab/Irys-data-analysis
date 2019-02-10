@@ -1,0 +1,5 @@
+args <- commandArgs(trailingOnly=TRUE)
+library(waveslim, lib.loc="C:/Users/Hila/Documents/R/win-library/3.3")
+wgbs_raw_vector <- read.delim(args[1], header=FALSE, col.names=c("val"))
+m <- modwt(wgbs_raw_vector$val, wf="la8", n.levels = 4, boundary = "reflection")
+write.table(m$s4, file=args[2], quote=FALSE, sep="\t", row.names = FALSE, col.names = FALSE)
