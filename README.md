@@ -59,9 +59,9 @@ _Output options:_
 
    The reported labels take up 3 bp in the BED file. You can then extend them separately to account for optical resolution.
 
-2. BED file of alignment regions of molecules that had at least 1 label in QUERY channel
+2. BED file of alignment regions of molecules.
 
-   **Note** that in order to get a BED file of **all** aligned molecules, you need to run the script twice, once for each channel, then merge the files using the _Merge two molecule regions BED files_ script.
+   **Note** that in **older versions** of the script, to get a BED file of **all** aligned molecules, you had to run the script twice, once for each channel, then merge the files using the _Merge two molecule regions BED files_ script. This step is **no longer needed** when running script versions from 5/19 or older.
 
 **Usage:**
 ```
@@ -102,10 +102,10 @@ Running:
 ```
 xmap_cmap_to_BED_stretched.py -o output_dir -lb -mb -p output_file_prefix xmap_file.xmap mol_q.cmap ref_r.cmap ref_key.txt
 ```
-will output two two BED files, one of all labels in channel 2, and another of all molecules that had at least one label in channel 2. Only molecules with alignment confidence >= 12 will be considered.
+will output two BED files, one of all labels in channel 2, and another of all aligned molecules that passed filter. Only molecules with alignment confidence >= 12 will be considered.
 
 ### Merge two BED files containing molecule regions
-Use this script to merge two molecule regions BED files from two different channels produced by the _xmap_cmap_to_BED_stretched_ script. Running this script ensures that you get the most complete range possible for each molecule.
+Use this script to merge two molecule regions BED files from two different channels produced by **old versions** of the _xmap_cmap_to_BED_stretched_ script. Running this script ensures that you get the most complete range possible for each molecule.
 
 _Input files:_ Two molecule regions BED files, one for each channel.
 
