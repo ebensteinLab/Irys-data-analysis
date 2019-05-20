@@ -20,11 +20,7 @@ parser.add_argument('-p', '--prefix', default="", help='output files prefix')
 args = parser.parse_args()
 
 xmap_infos = {}
-alignment_q_cmap_positions = {} #dict of positions where key=ID and val=list of tuples (posID,pos) for positions corresponding to alignment label channel
-query_q_cmap_positions = {} #dict of positions where key=ID and val=list of tuples (posID,pos) for positions corresponding to query label channel
 r_cmap_positions = {} #dict of positions where key=chrom and val=list of tuples (posID,pos)
-correct_positions = {} #dict of correct genomic positions where key=chrom and val = positions list
-molRegions = {} #dict of stretched mol regions. key=ID, val=tup(start,end)
 
 def parseKeyFile(key_file_path):
     '''parse the chromosome key file created when digesting a fasta reference file into a cmap''' 
