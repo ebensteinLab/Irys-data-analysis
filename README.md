@@ -61,7 +61,7 @@ _Output options:_
 
 2. BED file of alignment regions of molecules.
 
-   **Note** that in **older versions** of the script, to get a BED file of **all** aligned molecules, you had to run the script twice, once for each channel, then merge the files using the _Merge two molecule regions BED files_ script. This step is **no longer needed** when running script versions from 5/19 or older.
+   **Note** that in **older versions** of the script, to get a BED file of **all** aligned molecules, you had to run the script twice, once for each channel, then merge the files using the _Merge two molecule regions BED files_ script. This step is **no longer needed** when running script versions from 5/19 or newer.
 
 **Usage:**
 ```
