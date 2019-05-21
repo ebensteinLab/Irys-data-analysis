@@ -128,10 +128,8 @@ def writeMolLabelsToFile(mol_label_list, ref_id, padding, output_file_handle):
     for label in mol_label_list:
         start_pos = int(label) - padding
         end_pos = int(label) + padding
-        if start_pos < 0:
-            start_pos = 0
-        if end_pos > chrom_lengths[chrom_name]:
-            end_pos = chrom_lengths[chrom_name]
+        if start_pos < 0 or end_pos > chrom_lengths[chrom_name]:
+            continue
         line = "\t".join([chrom_name, str(start_pos), str(end_pos)]) + "\n"
         output_file_handle.write(line)
 
