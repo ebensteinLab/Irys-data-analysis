@@ -14,7 +14,8 @@ parser.add_argument('-c', '--conf', dest='min_confidence', type=int, default=12,
 parser.add_argument('-a', '--alignment', dest='alignment_label_channel', metavar='ALIGNMENT LABEL CHANNEL', type=int, default=1, help='alignment label channel. default 1')
 parser.add_argument('-q', '--query', dest='query_label_channel', metavar='QUERY LABEL CHANNEL', type=int, default=2, help='query label channel. default 2')
 parser.add_argument('-lb', '--label_bed', default=False, action='store_true', help='save query labels BED file. default False')
-parser.add_argument('-mb', '--molecule_bed', default=False, action='store_true', help='save molecules containing query labels. default False')
+parser.add_argument('-mb', '--molecule_bed', default=False, action='store_true', help='save BED file of molecule regions. default False')
+parser.add_argument('-mll', '--molecule_label_list', default=False, action='store_true', help='save tab-delimited file of all molecules and their query label positions. default False')
 parser.add_argument('-p', '--prefix', default="", help='output files prefix')
 
 args = parser.parse_args()
@@ -144,10 +145,25 @@ def writeMolRegionToFile(corrected_query_labels, corrected_alignment_labels, mol
         mol_end_pos = chrom_lengths[chrom_name]
     line = "\t".join([chrom_name, str(mol_start_pos), str(mol_end_pos), mol_id, "0", "+"]) + "\n"
     output_file_handle.write(line)
-    
 
 
-def getMoleculeStretchedAlignments(q_cmap_input_path, alignment_label_channel, query_label_channel, labels_output_path, molecules_output_path):
+def writeMolRegionLabelListToFile(corrected_query_labels, corrected_alignment_labels, mol_id,
+                                  ref_id, padding_molecules, output_file_handle):
+    chrom_name = chrom_names[ref_id]
+    mol_start_pos, mol_end_pos = getMolRegion(corrected_query_labels, corrected_alignment_labels)
+    mol_start_pos = int(mol_start_pos) - padding_molecules
+    mol_end_pos = int(mol_end_pos) + padding_molecules
+    if mol_start_pos < 0:
+        mol_start_pos = 0
+    if mol_end_pos > chrom_lengths[chrom_name]:
+        mol_end_pos = chrom_lengths[chrom_name]
+    query_labels_str = ",".join([str(int(label)) for label in corrected_query_labels])
+    mol_str = "\t".join([mol_id, chrom_name, str(mol_start_pos), str(mol_end_pos), query_labels_str]) + "\n"
+    output_file_handle.write(mol_str)
+
+
+def getMoleculeStretchedAlignments(q_cmap_input_path, alignment_label_channel, query_label_channel, labels_output_path, molecules_output_path,
+                                   molecules_labels_output_path):
     counter = 0
     with open(q_cmap_input_path) as q_cmap_file:
         line = skipHeader(q_cmap_file)
@@ -173,12 +189,15 @@ def getMoleculeStretchedAlignments(q_cmap_input_path, alignment_label_channel, q
             if molecules_output_path != "":
                 with open(molecules_output_path, 'a') as molecules_output_file:
                     writeMolRegionToFile(corrected_query_labels, corrected_alignment_labels, mol_id, xmap_infos[mol_id][2], 10, molecules_output_file)
-                    
+
+            if molecules_labels_output_path != "":
+                with open(molecules_labels_output_path, 'a') as molecules_labels_list_output_file:
+                    writeMolRegionLabelListToFile(corrected_query_labels, corrected_alignment_labels, mol_id, xmap_infos[mol_id][2], 10, molecules_labels_list_output_file)                    
 
 
 
-if not args.label_bed and not args.molecule_bed:
-    print("Missing Argument. At least one of -lb and -mb should be selected.")
+if not args.label_bed and not args.molecule_bed and not args.molecule_label_list:
+    print("Missing Argument. At least one of -lb, -mb, or -mll should be selected.")
     sys.exit(1)
     
 
@@ -206,6 +225,13 @@ if args.molecule_bed:
 else:
     molecule_output_path = ""
 
-getMoleculeStretchedAlignments(args.q_cmap, args.alignment_label_channel, args.query_label_channel, labels_output_path, molecule_output_path)
+if args.molecule_label_list:
+    molecules_labels_file_name = args.prefix+"conf."+str(args.min_confidence)+".molecules.labels.list.txt"
+    molecules_labels_output_path = os.path.join(output_dir,molecules_labels_file_name)
+else:
+    molecules_labels_file_name = ""
+
+getMoleculeStretchedAlignments(args.q_cmap, args.alignment_label_channel, args.query_label_channel, labels_output_path, molecule_output_path,
+                               molecules_labels_output_path)
 
 print("analysis complete")
